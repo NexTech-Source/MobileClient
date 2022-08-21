@@ -25,6 +25,7 @@ class _CropViewState extends State<CropView> {
         return true;
       },
       child: Scaffold(
+        backgroundColor: kTitleL,
           body: FutureBuilder(
               future: runTimeState
                   .get<AppRunTimeStatus>()
@@ -68,12 +69,13 @@ class _CropViewState extends State<CropView> {
                                               .get<AppRunTimeStatus>()
                                               .selectedCropIndex] =
                                       XFile(file.path);
-                                  
+                                  imageCache.clear();
+                                  imageCache.clearLiveImages();
                                   // setState(() {
 
                                   // });
                                   Navigator.of(context)
-                                      .popAndPushNamed(kCameraRollRoute);
+                                      .pushReplacementNamed(kCameraRollRoute);
                                 }),
                           ),
                           ElevatedButton(

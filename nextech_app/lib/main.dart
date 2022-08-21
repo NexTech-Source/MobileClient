@@ -4,13 +4,15 @@ import 'package:nextech_app/bloc/auth_repo.dart';
 import 'package:nextech_app/data/locator.dart';
 import 'package:nextech_app/data/runtime_state.dart';
 import 'package:nextech_app/presentation/router.dart';
+import 'package:nextech_app/storage/hive_local_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
 void main() async {
   setupRunTimeState();
   WidgetsFlutterBinding.ensureInitialized();
+  HiveStorage.init();
   runTimeState.get<AppRunTimeStatus>().cameras = await availableCameras();
-  print("Available Cameras : ${runTimeState.get<AppRunTimeStatus>().cameras.length}");
+  
   runApp(NextechApp(
     router: AppRouter(),
   ));

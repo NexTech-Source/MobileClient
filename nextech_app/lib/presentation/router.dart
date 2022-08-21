@@ -6,6 +6,7 @@ import 'package:nextech_app/presentation/screens/crop_image_view.dart';
 import 'package:nextech_app/presentation/screens/home_screen.dart';
 import 'package:nextech_app/presentation/screens/loading_screen.dart';
 import 'package:nextech_app/presentation/screens/login_screen.dart';
+import 'package:nextech_app/presentation/screens/register_user_screen.dart';
 
 class AppRouter {
   String runTimeRouteGenerator() {
@@ -24,7 +25,6 @@ class AppRouter {
       case kLoginRoute:
         return MaterialPageRoute(builder: 
         (BuildContext context) => LoginScreen());
-
       case kCameraRoute:
         return MaterialPageRoute(builder: 
         (BuildContext context) => const CameraScreen());
@@ -34,6 +34,9 @@ class AppRouter {
       case kCropRoute:
         return MaterialPageRoute(builder: 
         (BuildContext context) => const CropView());
+      case kRegisterRoute:
+        return MaterialPageRoute(builder: 
+        (BuildContext context) =>  SignUpScreen());
       default :
         return MaterialPageRoute<dynamic>(
       builder: (BuildContext context) => LoadingScreen(),

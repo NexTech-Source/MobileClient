@@ -23,7 +23,7 @@ class _PageViewingScreenState extends State<PageViewingScreen> {
     return WillPopScope(
       onWillPop: () {
         runTimeState.get<AppRunTimeStatus>().images = _photosList;
-        Navigator.of(context).popAndPushNamed(kCameraRoute);
+        Navigator.of(context).pushReplacementNamed(kCameraRoute);
         return Future.value(true);
       },
       child: Container(
@@ -42,8 +42,10 @@ class _PageViewingScreenState extends State<PageViewingScreen> {
                       child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.memory(runTimeState.get<AppRunTimeStatus>().imageBytes.elementAt(position)).image,
+                        fit: BoxFit.fitWidth,
+                        image: Image.file(
+                                File(_photosList.elementAt(position).path))
+                            .image,
                       ))));
                 }),
             Positioned(
@@ -75,7 +77,7 @@ class _PageViewingScreenState extends State<PageViewingScreen> {
                             onPressed: () {
                               runTimeState.get<AppRunTimeStatus>().selectedCropIndex = _pageIndex;
                               Navigator.of(context)
-                                  .popAndPushNamed(kCropRoute);
+                                  .pushReplacementNamed(kCropRoute);
                             },
                             icon: const Icon(Icons.crop,
                                 color: Colors.white, size: 28.0)),

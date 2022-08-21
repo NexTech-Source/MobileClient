@@ -2,9 +2,19 @@
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
+
 class AppRunTimeStatus {
   List<CameraDescription> cameras = [];
   List<XFile> images = [];
   List<Uint8List> imageBytes = [];
-    int selectedCropIndex = 0 ; 
+  int selectedCropIndex = 0;
+  int selectedRetakeImage = 0;
+  String exceptionMessage = "Internal Server Error, Please try again later";
+
+  setExceptionMessage(String message) {
+    exceptionMessage = "An error occured : " + message;
+  }
+  getExceptionMessage() {
+    return exceptionMessage;
+  }
 }

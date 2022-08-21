@@ -8,6 +8,7 @@ import 'package:nextech_app/bloc/login/login_bloc.dart';
 import 'package:nextech_app/bloc/login/login_event.dart';
 import 'package:nextech_app/bloc/login/login_state.dart';
 import 'package:nextech_app/constants/app_colours.dart';
+import 'package:nextech_app/constants/routes.dart';
 import 'package:nextech_app/presentation/router.dart';
 
 
@@ -50,8 +51,7 @@ class LoginScreen extends StatelessWidget {
             state.formStatus = const InitialFormStatus();
           }
           if (formStatus is SubmissionSuccess) {
-            //print("submission success now routing");
-            //runTimeState.get<AppRunTimeStatus>().setIsLoggedIn(true);
+           
 
             Navigator.of(context)
                 .popAndPushNamed(AppRouter().runTimeRouteGenerator());
@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(width: 250, child: _passwordField()),
               const Padding(padding: EdgeInsets.only(top: 20)),
               _loginButton(),
-              //_signUpText(),
+              _signUpText(),
               //_forgotPasswordText(context)
             ]));
   }
@@ -172,6 +172,29 @@ class LoginScreen extends StatelessWidget {
             );
     });
   }
+    Widget _signUpText() {
+    return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      TextStyle defaultStyle =
+          const TextStyle(color: Colors.grey, fontSize: 20.0);
+      TextStyle linkStyle = const TextStyle(color: Colors.blue);
+      return RichText(
+        text: TextSpan(
+          style: defaultStyle,
+          children: <TextSpan>[
+            const TextSpan(text: 'Don\'t have an account? '),
+            TextSpan(
+                text: 'SignUp',
+                style: linkStyle,
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Navigator.of(context).pushNamed(kRegisterRoute);
+                  }),
+          ],
+        ),
+      );
+    });
+  }
+
 
   void dispose() {
     passwordController.dispose();
