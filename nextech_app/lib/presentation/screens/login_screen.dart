@@ -23,21 +23,52 @@ class LoginScreen extends StatelessWidget {
     return Stack(
       children: [
           Image.asset(
-            "assets/images/bacground_2.png",
+            "assets/images/background_3.png",
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.cover,
           ),
           Positioned(
-            top: 100,
-             left: MediaQuery.of(context).size.width/2-200,
+            top: 400,
+            
+             left: 70,
             child: Image.asset(
-              "assets/images/login.png",
-              height: 600,
-              width: 400,
+              "assets/images/login_peeps.png",
+              height: 500,
+              
              
             ),
           ),
+           Positioned(
+            left:145,
+            top:80,
+            child: Image.asset(
+              "assets/images/icon.png",
+              height: 100,
+              width: 100,
+                  
+              
+            ),
+          ),
+        
+           
+           Positioned(
+              top:170,
+              left: 63,
+              child:Material(
+                color: Colors.transparent,
+                child: Text(
+                  "Nextech",
+                  style: TextStyle(
+                    color: kNextechColour,
+                    fontSize: 60,
+                    fontWeight: FontWeight.w300,
+                    letterSpacing: 3
+                  ),
+                ),
+              ),
+            ),
+          
           Positioned(
             top: 0,
             left: 0,
@@ -62,7 +93,7 @@ class LoginScreen extends StatelessWidget {
           ),
           
         Positioned(
-      
+   
           child: Scaffold(
           backgroundColor: Colors.transparent,
           body: BlocProvider(

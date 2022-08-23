@@ -18,14 +18,13 @@ class TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-        Image.asset(
-            "assets/images/background_4.png",
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ),
-        
-    Scaffold(
+      Image.asset(
+        "assets/images/background_4.png",
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
+      ),
+      Scaffold(
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
@@ -65,16 +64,15 @@ class TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 
   Widget uploadList() {
     return Material(
-     
       color: Colors.transparent,
       child: SizedBox(
         height: 400,
-        width: MediaQuery.of(context).size.width*0.95,
+        width: MediaQuery.of(context).size.width * 0.95,
         child: ListView.separated(
-          separatorBuilder: (context, index) => const Divider(
-            color: Colors.black,
-          ),
-          shrinkWrap: true,
+            separatorBuilder: (context, index) => const Divider(
+                  color: Colors.black,
+                ),
+            shrinkWrap: true,
             itemCount: transactions.length,
             itemBuilder: (context, index) {
               return Neumorphic(
@@ -95,7 +93,6 @@ class TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                   shadowLightColor: Colors.white,
                 ),
                 child: Container(
-                  
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     // crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,12 +107,14 @@ class TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                               fontWeight: FontWeight.w200,
                             ),
                           ),
-
-                          Icon(size: 28,transactions[index].status == DocStatus.yellow
-                              ? Icons.pending
-                              : transactions[index].status == DocStatus.green
-                                  ? Icons.check
-                                  : Icons.close),
+                          Icon(
+                              size: 28,
+                              transactions[index].status == DocStatus.yellow
+                                  ? Icons.pending
+                                  : transactions[index].status ==
+                                          DocStatus.green
+                                      ? Icons.check
+                                      : Icons.close),
                         ],
                       ),
                       const Padding(
@@ -152,13 +151,23 @@ class TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               shape: NeumorphicShape.concave,
               boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
             ),
-            child: Text(
-              "Refresh",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: kWhite,
-              ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                const Padding(padding: EdgeInsets.only(left: 10)),
+                Text(
+                  "Refresh",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: kWhite,
+                  ),
+                ),
+              ],
             ),
           );
   }
