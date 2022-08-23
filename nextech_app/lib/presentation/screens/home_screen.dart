@@ -21,7 +21,7 @@ class HomeScreenState extends State<HomeScreen> {
     return Stack(
       children:<Widget>[ 
          Image.asset(
-            "assets/images/bacground_2.png",
+            "assets/images/background_3.png",
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.cover,
@@ -51,76 +51,65 @@ class HomeScreenState extends State<HomeScreen> {
     color: Colors.transparent,
       child: Column(
         children: <Widget>[
-          Neumorphic(
-            style: NeumorphicStyle(
-              color: kLightPurple,
-              shape: NeumorphicShape.concave,
-              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-              depth: 8,
-              intensity: 0.65,
-              lightSource: LightSource.topLeft,
-              shadowDarkColor: Color.fromARGB(255, 51, 35, 66),
-              shadowLightColor: Colors.white,
-            ),
-            child: Container(
-              width: 300,
-              height: 300,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  
-                  NeumorphicText("Quick Scan",textStyle: NeumorphicTextStyle(fontSize: 35,fontWeight: FontWeight.w300,letterSpacing: 3),),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                  NeumorphicButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(kCameraRoute);
-                    },
-                    style: NeumorphicStyle(
-                      color: kLightPurple,
-                      shape: NeumorphicShape.concave,
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(12)),
-                      depth: 8,
-                      intensity: 0.65,
-                      lightSource: LightSource.topLeft,
-                      shadowDarkColor: Colors.black,
-                      shadowLightColor: Colors.white,
-                    ),
-                    child: Image.asset("assets/images/scanner.png",height: 150,width: 150,),
-                  ),
-                ],
-              ),
-            ),
+          Image.asset(
+            "assets/images/upload_docs.png",
+            height: 350,
+            width: MediaQuery.of(context).size.width*0.9,
           ),
-          const Padding(padding: EdgeInsets.only(top: 20)),
-          Neumorphic(
-            style: NeumorphicStyle(
-              color: kLightPurple,
-              shape: NeumorphicShape.concave,
-              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-              depth: 8,
-              intensity: 0.65,
-              lightSource: LightSource.topLeft,
-              shadowDarkColor: Colors.black,
-              shadowLightColor: Colors.white,
-            ),
-            child: Container(
-              width: 300,
-              height: 300,
+          const Padding(padding: EdgeInsets.only(top:20),),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                 
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      
+                      NeumorphicText("Quick Scan",textStyle: NeumorphicTextStyle(fontSize: 25,fontWeight: FontWeight.w300,letterSpacing: 3),style: NeumorphicStyle(color: kBlack)),
+                      const Padding(padding: EdgeInsets.only(top: 10)),
+                      NeumorphicButton(
+                         padding: const EdgeInsets.all(15),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(kCameraRoute);
+                        },
+                        style: NeumorphicStyle(
+                          color: kLightFadishPurple,
+                          shape: NeumorphicShape.concave,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(12)),
+                          depth: 8,
+                          intensity: 0.65,
+                          lightSource: LightSource.topLeft,
+                          shadowDarkColor: Colors.black,
+                          shadowLightColor: Colors.white,
+                        ),
+                        child: Image.asset("assets/images/scanner.png",height: 100,width: 100,),
+                      ),
+                    ],
+                  ),
+                ),
+              
+
+               Container(
+            
+              height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   
-                  NeumorphicText("Upload History",textStyle: NeumorphicTextStyle(fontSize: 35,fontWeight: FontWeight.w300,letterSpacing: 3),),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  NeumorphicText("Upload History",textStyle: NeumorphicTextStyle( fontSize: 25,fontWeight: FontWeight.w300,letterSpacing: 3),style: NeumorphicStyle(color: kBlack),),
+                  const Padding(padding: EdgeInsets.only(top: 10)),
                   NeumorphicButton(
+                    padding: const EdgeInsets.all(15),
                     onPressed: () {
                       Navigator.of(context).pushNamed(kHistoryRoute);
                     },
                     style: NeumorphicStyle(
-                      color: kLightPurple,
+                      color:  kLightFadishPurple,
                       shape: NeumorphicShape.concave,
                       boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(12)),
@@ -130,12 +119,18 @@ class HomeScreenState extends State<HomeScreen> {
                       shadowDarkColor: Colors.black,
                       shadowLightColor: Colors.white,
                     ),
-                    child: Image.asset("assets/images/upload_history.png",height: 150,width: 150,),
+                    child: Image.asset("assets/images/upload_history.png",height: 100,width: 100,),
                   ),
                 ],
               ),
             ),
+          
+         
+            
+            
+            ],
           ),
+         
          
           
          
@@ -148,7 +143,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget welcomeText() {
     return Text("Welcome back ${HiveStorage.getUser().firstName} !",
         style: TextStyle(
-            fontSize: 35, fontWeight: FontWeight.w500, color: kPurpleColour));
+            fontSize: 35, fontWeight: FontWeight.w500, color: kBlack));
   }
 
 

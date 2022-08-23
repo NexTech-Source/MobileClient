@@ -23,33 +23,56 @@ class _ConfirmUploadScreenState extends State<ConfirmUploadScreen> {
         Navigator.of(context).pushReplacementNamed(kCameraRollRoute);
         return Future.value(true);
       },
-      child: Material(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
-
-              clipBehavior: Clip.none,
+      child: Stack(
+        children : <Widget> [
+            Image.asset(
+            "assets/images/background_5.png",
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+           Positioned(
+            bottom: -10,
+            child: Image.asset(
+              "assets/images/doc_signing.png",
+              height: 300,
+            
+            ),
+          ),
+        
+          Center(
+            child: Material(
+            color: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-               
-              SizedBox(
-                      width: 300, height: 300, child: _docContainer(context)),
-                       Positioned(
-                  top: -70,
-                  left: MediaQuery.of(context).size.width / 2 - 110,
-                  child: Image.asset(
-                      'assets/images/pen_doc.png',
-                      height: 130,
-                      width: 130,
-                    ),
-                  ),
-                
-          ]),
-          
-          ],
+                Stack(
+      
+                  clipBehavior: Clip.none,
+                  children: [
+                   
+                  SizedBox(
+                          width: 300, height: 300, child: _docContainer(context)),
+                           Positioned(
+                      top: -70,
+                      left: MediaQuery.of(context).size.width / 2 - 110,
+                      child: Image.asset(
+                          'assets/images/pen_doc.png',
+                          height: 130,
+                          width: 130,
+                        ),
+                      ),
+                    
+              ]),
+              
+              ],
+            ),
         ),
-      ),
+          ),
+         
+      
+      ]),
     );
   }
     Widget _docContainer(context) {
@@ -57,7 +80,7 @@ class _ConfirmUploadScreenState extends State<ConfirmUploadScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        color: kLightPurple,
+        color: kLightTransPurple,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

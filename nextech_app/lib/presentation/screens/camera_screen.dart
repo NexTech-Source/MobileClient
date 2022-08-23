@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nextech_app/constants/app_colours.dart';
 import 'package:nextech_app/constants/routes.dart';
 import 'package:nextech_app/data/Server/network_service.dart';
@@ -54,7 +55,45 @@ class _CameraScreenState extends State<CameraScreen> {
         backgroundColor: kBlack,
         body: Center(
             child: controller.value.isInitialized
-                ? CameraPreview(controller)
+                ? Stack(children: [
+         CameraPreview(controller),                         
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width*0.9,
+              height: MediaQuery.of(context).size.height*0.7,
+              decoration: ShapeDecoration(
+                  color: const Color.fromARGB(0, 0, 0, 0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: const BorderSide(width: 1, color: Colors.white))),
+            )),
+            
+        ColorFiltered(
+          colorFilter: const ColorFilter.mode(Color.fromARGB(199, 3, 3, 3),BlendMode.srcOut),
+          child: Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width*0.9,
+                    height:  MediaQuery.of(context).size.height*0.7,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+               
+])
                 : const Text("Starting camera ...")),
         floatingActionButton: optionTray(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -114,7 +153,7 @@ class _CameraScreenState extends State<CameraScreen> {
           padding: const EdgeInsets.all(20),
         ),
         onPressed: () async {
-
+          await HapticFeedback.mediumImpact();
           final image = await controller.takePicture();
           runTimeState.get<AppRunTimeStatus>().images.add(image);
           runTimeState

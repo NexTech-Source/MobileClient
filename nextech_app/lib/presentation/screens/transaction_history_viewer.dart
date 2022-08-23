@@ -17,45 +17,56 @@ class TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   List<TransactionModel> transactions = HiveStorage.getAllDocUploadHistory();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kWhite,
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 30),
+    return Stack(children: [
+        Image.asset(
+            "assets/images/background_4.png",
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
           ),
-          _headerText(),
-          const Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          _historyCards(),
-          const Padding(
-            padding: EdgeInsets.only(top: 20),
-          ),
-          pollButton(),
-          const Padding(
-            padding: EdgeInsets.only(top: 10),
-          ),
-          const Text("Newest Uploads",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w200)),
-          uploadList(),
-        ],
+        
+    Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 50),
+            ),
+            _headerText(),
+            const Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
+            _historyCards(),
+            const Padding(
+              padding: EdgeInsets.only(top: 20),
+            ),
+            pollButton(),
+            const Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            const Text("Newest Uploads",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400)),
+            uploadList(),
+          ],
+        ),
       ),
-    );
+    ]);
   }
 
   Widget _headerText() {
     return Text("Upload History",
         style: TextStyle(
-          fontSize: 35,
+          fontSize: 40,
           fontWeight: FontWeight.w400,
-          letterSpacing: 4,
+          letterSpacing: 3,
           color: kTitle,
         ));
   }
 
   Widget uploadList() {
     return Material(
+     
+      color: Colors.transparent,
       child: SizedBox(
         height: 400,
         width: MediaQuery.of(context).size.width*0.95,

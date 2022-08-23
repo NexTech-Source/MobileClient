@@ -66,7 +66,7 @@ class APIService {
           return true;
         default:
           runTimeState.get<AppRunTimeStatus>().exceptionMessage =
-              jsonDecode(response.body)["message"];
+              jsonDecode(response.body)["message "];
           return false;
       }
     } catch (exception, stackTrace) {

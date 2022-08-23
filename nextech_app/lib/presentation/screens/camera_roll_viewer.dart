@@ -71,19 +71,64 @@ class _PageViewingScreenState extends State<PageViewingScreen> {
                                 color: Colors.white, size: 28.0)),
                         IconButton(
                             onPressed: () {
-                                 runTimeState.get<AppRunTimeStatus>().selectedRetakeImage = _pageIndex;
-                                   Navigator.of(context)
+                              runTimeState
+                                  .get<AppRunTimeStatus>()
+                                  .selectedRetakeImage = _pageIndex;
+                              Navigator.of(context)
                                   .pushReplacementNamed(kRetakeRoute);
                             },
                             icon: const Icon(Icons.refresh,
                                 color: Colors.white, size: 28.0)),
                         IconButton(
                             onPressed: () {
-                              runTimeState.get<AppRunTimeStatus>().selectedCropIndex = _pageIndex;
+                              runTimeState
+                                  .get<AppRunTimeStatus>()
+                                  .selectedCropIndex = _pageIndex;
                               Navigator.of(context)
                                   .pushReplacementNamed(kCropRoute);
                             },
                             icon: const Icon(Icons.crop,
+                                color: Colors.white, size: 28.0)),
+                        IconButton(
+                            onPressed: () {
+                              if (_pageIndex == 0) {
+                                XFile imgOther = runTimeState
+                                    .get<AppRunTimeStatus>()
+                                    .images
+                                    .last;
+                                runTimeState
+                                    .get<AppRunTimeStatus>()
+                                    .images
+                                    .last = runTimeState.get<AppRunTimeStatus>()
+                                    .images
+                                    .first;
+                                runTimeState.get<AppRunTimeStatus>()
+                                    .images
+                                    .first = imgOther;
+                                setState(() {
+                                  
+                                });
+                              }
+                              else{
+                                XFile imgOther = runTimeState
+                                    .get<AppRunTimeStatus>()
+                                    .images
+                                    .elementAt(_pageIndex);
+                                runTimeState
+                                    .get<AppRunTimeStatus>()
+                                    .images
+                                    [_pageIndex] = runTimeState.get<AppRunTimeStatus>()
+                                    .images
+                                    [_pageIndex-1];
+                                runTimeState.get<AppRunTimeStatus>()
+                                    .images
+                                    [_pageIndex-1] = imgOther;
+                                setState(() {
+                                  
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.swap_horiz,
                                 color: Colors.white, size: 28.0)),
                         IconButton(
                             onPressed: () {

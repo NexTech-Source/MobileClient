@@ -41,6 +41,7 @@ Color kDesertYellow = const Color.fromARGB(255, 255, 255, 81);
 Color kDarkerYellow = const Color.fromARGB(255, 164, 112, 0);
 Color kLightPurple = const Color.fromARGB(255, 156, 120, 255);
 Color kLightTransPurple = Color.fromARGB(98, 161, 78, 255);
+const kLightFadishPurple  = Color.fromARGB(255, 199, 173, 252);
 const kLightGreen = Color.fromARGB(255, 124, 255, 128);
 const kLightYellow = Color.fromARGB(255, 255, 231, 92);
 const kLightRed = Color.fromARGB(255, 255, 124, 124);

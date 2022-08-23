@@ -17,7 +17,7 @@ class AppRouter {
   }
 
   Future<String> initialRoute() async {
-    return kLoginRoute;
+    return kHomeRoute;
   }
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
