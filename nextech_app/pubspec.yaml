@@ -60,6 +60,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner:
   hive_generator:
+  flutter_launcher_icons: ^0.10.0
 
 flutter_icons:
   android: "launcher_icon"
