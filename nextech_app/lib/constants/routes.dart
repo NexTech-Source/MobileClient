@@ -4,3 +4,6 @@ const kRegisterRoute = '/register';
 const kCameraRoute  = '/camera';
 const kCameraRollRoute = '/camera_roll';
 const kCropRoute = '/crop';
+const kRetakeRoute = '/retake';
+const kConfirmUploadRoute = '/confirm_upload';
+const kHistoryRoute = '/history';

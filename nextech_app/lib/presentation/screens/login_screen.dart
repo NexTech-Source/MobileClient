@@ -21,22 +21,67 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kWhite,
-      body: BlocProvider(
-        create: (context) => LoginBloc(
-          authRepo: context.read<AuthRepository>(),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Builder(builder: (context) {
-              return _loginForm(context);
-            }),
-          ],
-        ),
-      ),
+    return Stack(
+      children: [
+          Image.asset(
+            "assets/images/bacground_2.png",
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+          Positioned(
+            top: 100,
+             left: MediaQuery.of(context).size.width/2-200,
+            child: Image.asset(
+              "assets/images/login.png",
+              height: 600,
+              width: 400,
+             
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Image.asset(
+              "assets/images/inde752.png",
+              height: 100,
+              width: 100,
+                  
+              
+            ),
+          ),
+        
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Image.asset(
+              "assets/images/sihlogo2.png",
+              height: 100,
+              width: 100,
+              
+            ),
+          ),
+          
+        Positioned(
+      
+          child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: BlocProvider(
+            create: (context) => LoginBloc(
+              authRepo: context.read<AuthRepository>(),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Builder(builder: (context) {
+                  return _loginForm(context);
+                }),
+              ],
+            ),
+          ),
+              ),
+        )],
     );
   }
 
@@ -51,8 +96,6 @@ class LoginScreen extends StatelessWidget {
             state.formStatus = const InitialFormStatus();
           }
           if (formStatus is SubmissionSuccess) {
-           
-
             Navigator.of(context)
                 .popAndPushNamed(AppRouter().runTimeRouteGenerator());
           }
@@ -80,7 +123,7 @@ class LoginScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        color: kLightPurple,
+        color: kLightTransPurple,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,7 +218,7 @@ class LoginScreen extends StatelessWidget {
     Widget _signUpText() {
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       TextStyle defaultStyle =
-          const TextStyle(color: Colors.grey, fontSize: 20.0);
+          const TextStyle(color: Color.fromARGB(255, 109, 109, 109), fontSize: 20.0);
       TextStyle linkStyle = const TextStyle(color: Colors.blue);
       return RichText(
         text: TextSpan(

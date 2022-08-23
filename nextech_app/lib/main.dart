@@ -10,7 +10,7 @@ import 'package:camera/camera.dart';
 void main() async {
   setupRunTimeState();
   WidgetsFlutterBinding.ensureInitialized();
-  HiveStorage.init();
+  await HiveStorage.init();
   runTimeState.get<AppRunTimeStatus>().cameras = await availableCameras();
   
   runApp(NextechApp(

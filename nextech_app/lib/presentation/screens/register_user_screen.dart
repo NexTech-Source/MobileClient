@@ -2,10 +2,10 @@ import 'package:nextech_app/bloc/login/form_submission_status.dart';
 import 'package:nextech_app/bloc/signup/signup_bloc.dart';
 import 'package:nextech_app/bloc/signup/signup_event.dart';
 import 'package:nextech_app/bloc/signup/signup_state.dart';
-import 'package:nextech_app/constants/app_colours.dart';
 import 'package:nextech_app/bloc/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:nextech_app/constants/app_colours.dart';
 
 class SignUpScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -22,17 +22,23 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: kPurpleColour,
         onPressed: () {
           Navigator.of(context).pop();
         },
         child: const Icon(Icons.arrow_back),
       ),
-      backgroundColor: kTitle,
-      body: BlocProvider(
-        create: (context) => SignUpBloc(
-          authRepo: context.read<AuthRepository>(),
+      backgroundColor: kWhite,
+      body: Center(
+        child: SingleChildScrollView(
+         
+          child: BlocProvider(
+            create: (context) => SignUpBloc(
+              authRepo: context.read<AuthRepository>(),
+            ),
+            child: _signUpForm(),
+          ),
         ),
-        child: _signUpForm(),
       ),
     );
   }
@@ -66,33 +72,27 @@ class SignUpScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Card(
-                      color: kTitle,
-                      elevation: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: NeumorphicText(
-                          'Create a New Account',
+                 
+            
+                  NeumorphicText(
+                          'Register',
                           style: NeumorphicStyle(
-                            color: kWhite,
+                            color: kPurpleColour,
                             depth: 1,
                           ),
                           textStyle: NeumorphicTextStyle(
-                            fontSize: 50,
+                            fontSize: 40,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                    ),
-                  ),
+                      
+                
                 ],
               ),
-              SizedBox(height: 500, child: _signUpContainer()),
+              SizedBox(height: 550, child: _signUpContainer()),
             ],
           ),
         ));
@@ -104,7 +104,7 @@ class SignUpScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          color: kPrussianBlueDarker,
+          color: kPurpleColour,
           child: Padding(
             padding: const EdgeInsets.all(40),
             child: Column(
@@ -122,7 +122,7 @@ class SignUpScreen extends StatelessWidget {
                   SizedBox(width: 300, child: _firstNameField()),
                   const Padding(padding: EdgeInsets.only(top: 10)),
                   SizedBox(width: 300, child: _lastNameField()),
-                  const Padding(padding: EdgeInsets.only(top: 5)),
+                  const Padding(padding: EdgeInsets.only(top: 15)),
                   _signUpButton(),
                 ]),
           ));
@@ -252,10 +252,10 @@ class SignUpScreen extends StatelessWidget {
                       }
                     },
                     style: NeumorphicStyle(
-                      shadowDarkColor: kPaneColor,
-                      shadowLightColor: kPaneColor,
+                      shadowDarkColor: kPurpleColourDarker,
+                      shadowLightColor: kPurpleColour,
                       shape: NeumorphicShape.flat,
-                      color: kTitle2,
+                      color: kPurpleColour,
                       boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(8)),
                       //border: NeumorphicBorder()
@@ -286,17 +286,6 @@ class SignUpScreen extends StatelessWidget {
     });
   }
 
-  Widget _doneButton() {
-    return BlocBuilder<SignUpBloc, SignupState>(builder: (context, state) {
-      return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              primary: kGreenSentinel, onPrimary: kWhite),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text("Done"));
-    });
-  }
 
   //TODO: solve all the disposes in the bloc
   void dispose() {

@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:nextech_app/data/models/model_exports.dart';
+import 'package:nextech_app/data/runtime_state.dart';
 import 'package:nextech_app/storage/hive_local_storage.dart';
+
+import '../data/locator.dart';
 
 class APIService {
   String endpointUrl = "";
@@ -35,6 +39,8 @@ class APIService {
         case 200:
           return true;
         default:
+          runTimeState.get<AppRunTimeStatus>().exceptionMessage =
+              jsonDecode(response.body)["message"];
           return false;
       }
     } catch (exception, stackTrace) {
@@ -55,9 +61,12 @@ class APIService {
       client.close();
       switch (response.statusCode) {
         case 200:
-          await HiveStorage.storeToken(TokenModel.fromJson(jsonDecode(response.body)));
+          await HiveStorage.storeToken(
+              TokenModel.fromJson(jsonDecode(response.body)));
           return true;
         default:
+          runTimeState.get<AppRunTimeStatus>().exceptionMessage =
+              jsonDecode(response.body)["message"];
           return false;
       }
     } catch (exception, stackTrace) {
@@ -65,29 +74,42 @@ class APIService {
     }
   }
 
-  Future<bool> uploadDocument(List<XFile> imageFiles) async {
+  Future<bool> uploadDocument(String docName, List<XFile> imageFiles) async {
     try {
       final client = http.Client();
+      List<String> base64Images = [];
+      for (var image in imageFiles) {
+        base64Images.add(base64Encode(
+            await FlutterImageCompress.compressWithList(
+                await image.readAsBytes(),
+                quality: 90)));
+      }
       final resp = await client.post(Uri.parse(endpointUrl),
           headers: {
             'authToken': 'Bearer ${HiveStorage.getAuthToken().authToken}',
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
           },
           body: jsonEncode({
-            "images": imageFiles,
-            "numberOfPages": imageFiles.length,
+            "docName": docName,
+            "images": base64Images,
+            "numberOfPages": base64Images.length,
             "email": HiveStorage.getUser().email,
           }));
       print("Upload Document Response ${resp.body}");
       switch (resp.statusCode) {
         case 200:
-          //store tid here
+          TransactionModel transactionModel =
+              TransactionModel.fromJson(jsonDecode(resp.body));
+          transactionModel.setDocName(docName);
+          runTimeState.get<AppRunTimeStatus>().images = [];
+           runTimeState.get<AppRunTimeStatus>().imageBytes = [];
+          await HiveStorage.storeTransaction(transactionModel);
           return true;
         default:
           return false;
       }
     } catch (exception, stackTrace) {
+      print(exception);
       return false;
     }
   }
@@ -106,7 +128,13 @@ class APIService {
     print("Poll on DB Response ${resp.body}");
     switch (resp.statusCode) {
       case 200:
-        //save docStatus for that doc
+        String status = jsonDecode(resp.body)['message'];
+        DocStatus curState = status.contains("yellow")
+            ? DocStatus.yellow
+            : status.contains("green")
+                ? DocStatus.green
+                : DocStatus.red;
+        await HiveStorage.updateTransaction(tid, curState);
         return true;
       default:
         return false;

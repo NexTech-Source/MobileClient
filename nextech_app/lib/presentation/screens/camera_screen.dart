@@ -68,11 +68,11 @@ class _CameraScreenState extends State<CameraScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Padding(padding: EdgeInsets.only(left: 20)),
-      thumbImage(context),
-          const Padding(padding: EdgeInsets.only(left: 66)),
-    captureButton(),
-         const Padding(padding: EdgeInsets.only(left: 40)),
-       submitButton(),
+        thumbImage(context),
+        const Padding(padding: EdgeInsets.only(left: 66)),
+        captureButton(),
+        const Padding(padding: EdgeInsets.only(left: 40)),
+        submitButton(),
       ],
     );
   }
@@ -80,14 +80,10 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget submitButton() {
     return ElevatedButton(
         onPressed: () {
-
-         
-
-
+          Navigator.of(context).pushReplacementNamed(kConfirmUploadRoute);
         },
         child: Text(
             "Submit (${runTimeState.get<AppRunTimeStatus>().images.length})"));
-     
   }
 
   Widget thumbImage(context) {
@@ -118,9 +114,13 @@ class _CameraScreenState extends State<CameraScreen> {
           padding: const EdgeInsets.all(20),
         ),
         onPressed: () async {
+
           final image = await controller.takePicture();
           runTimeState.get<AppRunTimeStatus>().images.add(image);
-          runTimeState.get<AppRunTimeStatus>().imageBytes.add(await image.readAsBytes());
+          runTimeState
+              .get<AppRunTimeStatus>()
+              .imageBytes
+              .add(await image.readAsBytes());
           setState(() {});
         },
         child: const Icon(Icons.camera));

@@ -70,7 +70,11 @@ class _PageViewingScreenState extends State<PageViewingScreen> {
                             icon: const Icon(Icons.arrow_back_ios,
                                 color: Colors.white, size: 28.0)),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                                 runTimeState.get<AppRunTimeStatus>().selectedRetakeImage = _pageIndex;
+                                   Navigator.of(context)
+                                  .pushReplacementNamed(kRetakeRoute);
+                            },
                             icon: const Icon(Icons.refresh,
                                 color: Colors.white, size: 28.0)),
                         IconButton(
