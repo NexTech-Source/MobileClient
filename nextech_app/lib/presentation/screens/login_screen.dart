@@ -50,15 +50,13 @@ class LoginScreen extends StatelessWidget {
               
             ),
           ),
-        
-           
            Positioned(
               top:170,
               left: 63,
               child:Material(
                 color: Colors.transparent,
                 child: Text(
-                  "Nextech",
+                  "NexTech",
                   style: TextStyle(
                     color: kNextechColour,
                     fontSize: 60,
@@ -95,6 +93,7 @@ class LoginScreen extends StatelessWidget {
         Positioned(
    
           child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: BlocProvider(
             create: (context) => LoginBloc(

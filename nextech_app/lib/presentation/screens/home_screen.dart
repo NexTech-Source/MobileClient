@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:nextech_app/constants/app_colours.dart';
 import 'package:nextech_app/constants/routes.dart';
 import 'package:nextech_app/data/locator.dart';
 import 'package:nextech_app/data/runtime_state.dart';
-import 'package:nextech_app/storage/hive_local_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -141,7 +139,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Widget welcomeText() {
-    return Text("Welcome back ${HiveStorage.getUser().firstName} !",
+    return Text("Welcome back Admin !",
         style: TextStyle(
             fontSize: 35, fontWeight: FontWeight.w500, color: kBlack));
   }

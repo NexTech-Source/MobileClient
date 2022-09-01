@@ -10,8 +10,8 @@ class NetworkService{
     return await APIService(kNTSLogin).loginUser(email,password);
   }
 
-  static Future<bool> uploadDocument(String docName, List<XFile> images) async {
-    return await APIService(kNTSUploadDocument).uploadDocument(docName, images);
+  static Future<bool> uploadDocument(String docName,String userName, List<XFile> images) async {
+    return await APIService(kNTSUploadDocument).uploadDocument(docName,userName, images);
   }
 
   static Future<bool> pollDB(String tid) async 

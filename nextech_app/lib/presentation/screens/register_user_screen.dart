@@ -6,6 +6,7 @@ import 'package:nextech_app/bloc/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:nextech_app/constants/app_colours.dart';
+import 'package:nextech_app/constants/routes.dart';
 
 class SignUpScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -20,27 +21,35 @@ class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kPurpleColour,
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: const Icon(Icons.arrow_back),
-      ),
-      backgroundColor: kWhite,
-      body: Center(
-        child: SingleChildScrollView(
-         
-          child: BlocProvider(
-            create: (context) => SignUpBloc(
-              authRepo: context.read<AuthRepository>(),
+    return Stack(
+      children: [
+         Image.asset(
+            "assets/images/background_4.png",
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+        Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: kBlueNCS,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(Icons.arrow_back),
+        ),
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: SingleChildScrollView(
+            child: BlocProvider(
+              create: (context) => SignUpBloc(
+                authRepo: context.read<AuthRepository>(),
+              ),
+              child: _signUpForm(),
             ),
-            child: _signUpForm(),
           ),
         ),
       ),
-    );
+    ]);
   }
 
   Widget _signUpForm() {
@@ -64,6 +73,7 @@ class SignUpScreen extends StatelessWidget {
           if (formStatus is SubmissionSuccess) {
             _showSnackBar(
                 context, 'Sign Up request successful', kGreenSentinel);
+            Navigator.of(context).pushReplacementNamed(kLoginRoute);
           }
         },
         child: Form(
@@ -75,21 +85,17 @@ class SignUpScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                 
-            
                   NeumorphicText(
-                          'Register',
-                          style: NeumorphicStyle(
-                            color: kPurpleColour,
-                            depth: 1,
-                          ),
-                          textStyle: NeumorphicTextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      
-                
+                    'Register',
+                    style: NeumorphicStyle(
+                      color: kBlueNCS,
+                      depth: 1,
+                    ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 550, child: _signUpContainer()),
@@ -104,7 +110,7 @@ class SignUpScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          color: kPurpleColour,
+          color: kLightOrange,
           child: Padding(
             padding: const EdgeInsets.all(40),
             child: Column(
@@ -255,7 +261,7 @@ class SignUpScreen extends StatelessWidget {
                       shadowDarkColor: kPurpleColourDarker,
                       shadowLightColor: kPurpleColour,
                       shape: NeumorphicShape.flat,
-                      color: kPurpleColour,
+                      color: kGreenSentinel,
                       boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(8)),
                       //border: NeumorphicBorder()
@@ -285,7 +291,6 @@ class SignUpScreen extends StatelessWidget {
             );
     });
   }
-
 
   //TODO: solve all the disposes in the bloc
   void dispose() {

@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nextech_app/data/models/model_exports.dart';
 import 'package:nextech_app/data/runtime_state.dart';
 import 'package:nextech_app/storage/hive_local_storage.dart';
-
 import '../data/locator.dart';
 
 class APIService {
@@ -74,15 +73,16 @@ class APIService {
     }
   }
 
-  Future<bool> uploadDocument(String docName, List<XFile> imageFiles) async {
-    try {
+  Future<bool> uploadDocument(
+      String docName, String userName, List<XFile> imageFiles) async {
+     try {
       final client = http.Client();
       List<String> base64Images = [];
       for (var image in imageFiles) {
         base64Images.add(base64Encode(
             await FlutterImageCompress.compressWithList(
                 await image.readAsBytes(),
-                quality: 90)));
+                quality: 10)));
       }
       final resp = await client.post(Uri.parse(endpointUrl),
           headers: {
@@ -93,14 +93,14 @@ class APIService {
             "docName": docName,
             "images": base64Images,
             "numberOfPages": base64Images.length,
-            "email": HiveStorage.getUser().email,
+            "email": HiveStorage.getUser().email, 
           }));
       print("Upload Document Response ${resp.body}");
       switch (resp.statusCode) {
         case 200:
           TransactionModel transactionModel =
               TransactionModel.fromJson(jsonDecode(resp.body));
-          transactionModel.setDocName(docName);
+          transactionModel.setDocName(docName,userName);
           runTimeState.get<AppRunTimeStatus>().images = [];
            runTimeState.get<AppRunTimeStatus>().imageBytes = [];
           await HiveStorage.storeTransaction(transactionModel);
@@ -129,7 +129,7 @@ class APIService {
     switch (resp.statusCode) {
       case 200:
         String status = jsonDecode(resp.body)['message'];
-        DocStatus curState = status.contains("yellow")
+        DocStatus curState = status.contains("Yellow")
             ? DocStatus.yellow
             : status.contains("green")
                 ? DocStatus.green

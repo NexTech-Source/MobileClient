@@ -14,21 +14,23 @@ class TransactionModel extends HiveObject {
   @HiveField(2)
   String timestamp;
   @HiveField(3)
-  String docName = "" ; 
-  
+  String docName = "";
+  @HiveField(4)
+  String username = ""; 
+
   TransactionModel(this.tid, this.status, this.timestamp);
 
   TransactionModel.fromJson(Map<String, dynamic> json)
       : tid = json['tid'],
-        status = 
-            json['message'].contains("green")
-                ? DocStatus.green
-                : json['message'].contains("red")
-                    ? DocStatus.red
-                    : DocStatus.yellow,
+        status = json['message'].contains("green")
+            ? DocStatus.green
+            : json['message'].contains("red")
+                ? DocStatus.red
+                : DocStatus.yellow,
         timestamp = DateTime.now().toString();
-  void setDocName(String docName) {
+  void setDocName(String docName,String username) {
     this.docName = docName;
+    this.username = username;
   }
 }
 

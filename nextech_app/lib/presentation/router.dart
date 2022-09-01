@@ -18,7 +18,7 @@ class AppRouter {
 
   Future<String> initialRoute() async {
     //TODO: add logic to check whether the the last login was more than 22 hours ago , else continue to home screen
-    return kLoginRoute;
+    return kHomeRoute;
   }
 
   Route<dynamic> onGenerateRoute(RouteSettings settings) {

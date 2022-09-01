@@ -49,3 +49,5 @@ const kLightRed = Color.fromARGB(255, 255, 124, 124);
 const kLightGreen2 =  Color.fromARGB(255, 159, 233, 110);
 const kLightYellow2 = Color.fromARGB(255, 218, 218, 116);
 const kLightRed2 = Color.fromARGB(255, 177, 78, 78);
+const kLightOrange = Color.fromARGB(210, 255, 156, 126);
+const kLightGrey = Color.fromARGB(255, 215, 214, 214);

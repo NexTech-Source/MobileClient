@@ -27,6 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         try {
           bool issuccessful = await authRepo.login(state.email, state.password);
           if (issuccessful) {
+            runTimeState.get<AppRunTimeStatus>().currentEmail = state.email;
             emit(state.copyWith(formStatus: SubmissionSuccess()));
           } else {
             emit(state.copyWith(formStatus: SubmissionFailed(runTimeState.get<AppRunTimeStatus>().exceptionMessage)));
