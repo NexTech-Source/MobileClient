@@ -2,7 +2,7 @@
 The mobile Client built in Flutter for the Document Capture App
 
 Here are some of the App Screenshots
-![app-login-page (yes we know its over cluttered)](app_pics/8.jpg)
+![app-login-page (yes we know its over cluttered) | height = 70px ](app_pics/8.jpg)
 
 ![app-register-page (weirdly colored, agreed)](app_pics/9.jpg)
 
